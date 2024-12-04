@@ -1,70 +1,52 @@
-# Effect of Cup Football on League Performance
+# Causal Effect of Domestic Cup Performance on League Outcomes
 
-## Project Overview
+This repository contains the analysis and methodology from my MSc thesis: *Evaluating the Effect of Cup Participation on League Performance: Evidence from European Domestic Cups* (Grade: 8.0) as part of the MSc Econometrics and Management Science. The study investigates the causal effect of participating in and winning domestic cup fixtures on subsequent league performance, with a focus on randomness from cup draws as a source of exogenous variation.
 
-This repository contains the analysis code for the paper *"Evaluating the Effect of Cup Participation on League Performance: Evidence from European Domestic Cups"* by Jelle Willekes. The study investigates the impact of domestic cup participation and winning on subsequent league performance, using random cup draws as an exogenous variation source. The analysis spans the FA Cup (England), DFB Pokal (Germany), KNVB Beker (Netherlands), and Taca de Portugal (Portugal).
+## Problem Statement
 
-## Key Objectives
+Fixture congestion is a well-known issue in football, often cited as a challenge by players and managers. However, its impact on team performance remains debated. This study examines two primary questions:
+1. Does winning a domestic cup fixture improve performance in the next league match?
+2. Does participating in a domestic cup fixture, irrespective of the result, affect subsequent league performance?
 
-1. **Causal Effect of Cup Participation**: Evaluate whether participation in cup competitions affects league performance, focusing on both immediate (within 5 days) and end-of-season outcomes.
-2. **Impact of Cup Wins**: Determine how winning individual cup matches influences a team’s momentum and subsequent league results.
-3. **Instrumental Variable Approach**: Use the randomness of opponent rank and division from cup draws as instruments to estimate causal effects.
+The analysis covers domestic cup competitions in four countries: the FA Cup (England), DFB Pokal (Germany), KNVB Beker (Netherlands), and Taça de Portugal (Portugal).
 
 ## Methodology
 
-### Instrumental Variables and Two-Stage Least Squares (2SLS)
+### Data
+- **Scope**: Data includes 2012-2023 seasons from four European leagues.
+- **Variables**: Cup participation and outcomes, subsequent league performance, opponent strength, recovery days, travel distances, team financial characteristics (market value, squad size), and more.
+- **Sources**: API-Football for fixtures and Transfermarkt for team financial data.
 
-- **Instrumental Variables (IV)**:
-  - **Opponent Rank**: Rank of the opponent based on the prior season’s standing.
-  - **Opponent Division**: Division level of the opponent team.
-- **Assumptions**:
-  - **Exogeneity**: Cup match draws are random, meaning opponent characteristics are unrelated to unobserved factors in league performance.
-  - **Exclusion Restriction**: The effect of the opponent’s characteristics on league outcomes occurs solely through match participation, not through other pathways.
-- **2SLS Analysis**:
-  - **First Stage**: Model cup participation or win probabilities based on the opponent’s rank and division.
-  - **Second Stage**: Estimate league performance impact using predicted cup participation from the first stage.
-
-## Data
-
-- Data covers cup and league fixtures from 2012 to 2023 across England, Germany, the Netherlands, and Portugal.
-- Sources include API-Football for match details and Transfermarkt for team characteristics.
-- **Data Filtering**: Only league fixtures within 5 days of a cup match are analyzed to isolate immediate effects, avoiding confounding factors from other matches.
-
-### Key Variables
-- **Outcome Variables**:
-  - **League Points**: Points obtained in the league fixture following a cup match.
-  - **End-of-Season Rank**: Team’s final league standing.
-- **Treatment Variables**:
-  - **Cup Participation**: Binary indicator of a team’s participation in a given cup round.
-  - **Cup Win**: Binary outcome indicating a win in a cup round.
-- **Control Variables**: Distance traveled, recovery days, team size, market value, and foreign player percentage.
-
-## Analysis Components
-
-1. **Estimating the Effect of Cup Participation**:
-   - Compares league performance following a cup match to league performance without cup congestion.
-   
-2. **Effect of Winning a Cup Round**:
-   - Evaluates the momentum boost effect on league performance, focusing on different cup rounds.
-
+### Approach
+1. **Instrumental Variable (IV) Estimation**:
+   - Leveraged randomness in cup draws to create natural variation in opponent strength.
+   - Used opponent division and previous season rank as instruments for winning and participating in cup matches.
+2. **Two-Stage Least Squares (2SLS)**:
+   - First stage: Predict cup participation or win based on instruments.
+   - Second stage: Estimate causal effects on league performance using predicted participation/win.
 3. **Robustness Checks**:
-   - **Distance as an IV**: Examines the effect of travel fatigue by adding distance as an instrumental variable.
-   - **Heterogeneity Analysis**: Assesses how effects vary based on team characteristics like market value and squad size.
+   - Tested alternative instruments like travel distance.
+   - Conducted heterogeneity analysis to explore varying effects by team size and market value.
 
-## Usage
+## Key Findings
+- **Winning a Cup Fixture**:
+  - Boosts league performance for smaller, lower-value teams due to psychological momentum.
+  - No significant impact observed for larger, higher-value teams likely due to better resources for handling congestion.
+- **Cup Participation**:
+  - No evidence of significant effects on subsequent league performance, suggesting that fixture congestion alone does not directly harm performance.
+- **Robustness**:
+  - Results are consistent across different model specifications and robustness tests.
 
-1. **Fetch Raw Data**:
-    ```bash
-    python main.py run_request_raw_data <country>
-    ```
-   Replace `<country>` with one of the supported countries (England, Germany, Netherlands) to fetch raw data.
+## Implications
+- Smaller teams can leverage cup victories to improve league outcomes during congested periods.
+- Larger teams are less affected by cup-related momentum but can strategically manage resources during fixture congestion.
 
-2. **Preprocess Data**:
-    ```bash
-    python main.py run_preprocess_data <country> <cup>
-    ```
-   Replace `<country>` with the country name and `<cup>` with the competition name (e.g., FA_Cup) for data preparation.
+## Contents
+- **Data**: Pre-processed datasets and variable definitions.
+- **Code**: Scripts for data preparation, model estimation, and robustness checks.
+- **Figures**: Visualizations of causal effects and descriptive statistics.
 
-## Results Summary
-
-Initial findings indicate that winning cup matches boosts league performance, particularly for lower-market-value teams. However, merely participating in cup fixtures shows no significant league performance impact, implying that fixture congestion alone does not substantially hinder league outcomes.
+## How to Use
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/jellewillekes/causal-effect-cup-performance.git
