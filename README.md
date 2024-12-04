@@ -1,4 +1,4 @@
-# Causal Effect of Domestic Cup Performance on League Outcomes
+# Evaluating the effect of cup participation on league performance: Evidence from European domestic cups
 
 This repository contains the analysis and methodology from my MSc thesis: *Evaluating the Effect of Cup Participation on League Performance: Evidence from European Domestic Cups* (Grade: 8.0) as part of the MSc Econometrics and Management Science. The study investigates the causal effect of participating in and winning domestic cup fixtures on subsequent league performance, with a focus on randomness from cup draws as a source of exogenous variation.
 
@@ -49,4 +49,4 @@ The analysis covers domestic cup competitions in four countries: the FA Cup (Eng
 ## How to Use
 1. Clone this repository:
    ```bash
-   git clone https://github.com/jellewillekes/causal-effect-cup-performance.git
+   git clone https://github.com/jellewillekes/causal-effect-cup-football-iv-analysis.git
